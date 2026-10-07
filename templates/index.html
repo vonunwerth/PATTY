@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title id="document-title">Parabel · Announcement training</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script type="module" src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+<main>
+  <header><a class="brand" href="/">⌁ <span>PARABEL<span class="brand-sub" data-i18n="brandSub">FLIGHT TRAINING</span></span></a><span class="badge"><i></i> <span data-i18n="badge">ANNOUNCEMENT SIMULATOR</span></span><div class="language-picker" role="group" aria-label="Language"><span data-i18n="language">Language</span><button type="button" class="language-option" data-language="en" aria-label="English" title="English">🇬🇧</button><button type="button" class="language-option" data-language="de" aria-label="Deutsch" title="Deutsch">🇩🇪</button><button type="button" class="language-option" data-language="fr" aria-label="Français" title="Français">🇫🇷</button></div></header>
+  <section class="intro"><div><p class="eyebrow" data-i18n="eyebrow">READY FOR ZERO GRAVITY</p><h1 data-i18n="headline">Make the sequence second nature.</h1><p data-i18n="intro">Hear the calls. Recognise the phases. Train together.</p></div><button id="fullscreen" class="secondary" data-i18n="fullscreen">⛶ Fullscreen</button></section>
+  <div class="layout">
+    <section class="cockpit">
+      <div class="metrics"><div><span class="label" data-i18n="parabola">PARABOLA</span><strong><span id="counter">01</span><small id="total"> / 05</small></strong></div><div><span class="label" data-i18n="trainingTime">TRAINING TIME</span><strong id="elapsed">00:00</strong></div><div><span class="label" data-i18n="status">STATUS</span><strong id="status" class="status">Ready</strong></div></div>
+      <div id="gravity" class="gravity green"><div class="phase-top"><span id="phase">STEADY FLIGHT</span><span id="phase-index">01 / 06</span></div><div class="g-value"><span id="g">1</span><span class="g-unit">g</span></div><p id="phase-description">Prepare for the next parabola</p><div class="phase-bottom"><span id="next-phase">PULL UP IN</span><strong id="remaining">01:00</strong></div><div class="progress"><div id="progress"></div></div></div>
+      <div class="announcement"><span class="sound-icon">◖))</span><div><span class="label" data-i18n="currentCall">CURRENT CALL</span><p id="announcement" aria-live="polite">Ready for training</p></div><span id="next-call">Press start</span></div>
+      <div class="controls"><button id="start" class="primary">▶ Start training</button><button id="reset" class="secondary" data-i18n="reset">↺ Reset</button><button id="mute" class="icon-button" aria-label="Mute" aria-pressed="false">♫ Sound on</button></div>
+      <p class="hint" data-i18n="keyboardHint">Space: Start / Pause <span>·</span> F: Fullscreen · Times relative to “Pull up”</p>
+    </section>
+    <aside><div class="panel"><div class="panel-title"><h2 data-i18n="flightProfile">Flight profile</h2><span data-i18n="oneParabola">1 PARABOLA</span></div><div class="profile-chart">
+        <svg id="flight-profile" viewBox="0 0 308 166" role="img" aria-labelledby="profile-title profile-description">
+          <title id="profile-title" data-i18n="profileTitle">Flight profile and current position</title>
+          <desc id="profile-description">The dot follows the current position along the flight profile.</desc>
+          <defs><linearGradient id="profile-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c7d9e6" stop-opacity=".38"/><stop offset="100%" stop-color="#eaf1f6" stop-opacity=".12"/></linearGradient></defs>
+          <path d="M18 130H290" class="profile-baseline"/>
+          <path class="profile-area" fill="url(#profile-fill)"/>
+          <text x="154" y="17" text-anchor="middle" class="profile-crest-label" data-i18n="zeroG">ZERO-G</text>
+          <g class="profile-ticks"><path d="M54 134v4 M126 134v4 M194 134v4 M254 134v4"/><text x="54" y="153">0 s</text><text x="126" y="153">24 s</text><text x="194" y="153">46 s</text><text x="254" y="153">72 s</text></g>
+          <g class="profile-track" fill="none" stroke-width="3.5" stroke-linejoin="round"/>
+          <line class="profile-guide" x1="18" x2="18" y1="127" y2="130"/>
+          <g class="profile-marker" transform="translate(18 118)"><circle r="11" fill="currentColor" opacity=".16"/><circle r="6" fill="currentColor" stroke="white" stroke-width="2.5"/><circle r="2" fill="#213c53"/></g>
+        </svg>
+        <div class="profile-caption"><span><i></i> <span data-i18n="currentPosition">Current position</span></span><span data-i18n="timeFromPullUp">Time from pull up</span></div>
+      </div><div class="phase-list"><div data-phase="0"><i class="dot green"></i><span data-phase-name="steady">Steady flight<small data-phase-detail="steady">Preparation · 60 s</small></span><b>1 g</b></div><div data-phase="1"><i class="dot red"></i><span data-phase-name="pullUp">Pull up<small data-phase-detail="pullUp">0–21 s</small></span><b>1.8 g</b></div><div data-phase="2"><i class="dot brown"></i><span data-phase-name="injection">Injection transition<small data-phase-detail="injection">21–24 s · 3 seconds</small></span><b>1.8 → 0 g</b></div><div data-phase="3"><i class="dot yellow"></i><span data-phase-name="zeroG">Zero-G<small data-phase-detail="zeroG">24–46 s</small></span><b>0 g</b></div><div data-phase="4"><i class="dot brown"></i><span data-phase-name="pullOutTransition">Pull out transition<small data-phase-detail="pullOutTransition">46–48 s · 2 seconds</small></span><b>0 → 1.8 g</b></div><div data-phase="5"><i class="dot red"></i><span data-phase-name="pullOut">Pull out<small data-phase-detail="pullOut">48–72 s</small></span><b>1.8 g</b></div></div></div>
+      <div class="panel settings"><h2 data-i18n="trainingSetup">Training setup</h2><label for="count" data-i18n="numberParabolas">Number of parabolas</label><input id="count" type="number" min="1" max="100" step="1" value="5" inputmode="numeric"><label for="entry" data-i18n="startPoint">Start point</label><select id="entry"><option value="normal" data-i18n="oneMinuteP1">One minute · P1</option><option value="recovery" data-i18n="recoveryP1">Steady flight · 40 s before P1</option></select><label for="voice" data-i18n="voice">Voice · English only</label><select id="voice"><option value="">English voice required</option></select><button id="test-voice" class="secondary" data-i18n="testVoice">◖)) Test voice</button><button id="test-countdown" class="secondary" data-i18n="testCountdown">▶ Test countdown</button><p id="voice-status" class="hint">English audio · preloaded before training starts.</p></div>
+    </aside>
+  </div>
+  <details class="schedule"><summary><span data-i18n="callsTimeline">Calls & timeline</span> <span data-i18n="basedOnReference">Based on the reference ↗</span></summary><div id="schedule"></div><p data-i18n="scheduleNote">“Thirty” at +1 s. Injection at +21 s, followed by a brown 3-second transition from 1.8 g to 0 g. Zero-G begins at +24 s. Pull out at +46 s, followed by a brown 2-second transition from 0 g to 1.8 g. Steady flight at +72 s, then 40 seconds until “One minute, P” and the next number.</p></details>
+  <footer>
+    <div class="footer-logos" aria-label="BART team and partner institutions">
+      <a class="footer-partner footer-partner-left" href="https://www.tu.berlin/raumfahrttechnik" target="_blank" rel="noopener noreferrer" aria-label="TU Berlin · Raumfahrttechnik (opens in a new tab)"><img class="logo-tu" src="{{ url_for('static', filename='logos/tu-berlin.jpg') }}" alt="Technische Universität Berlin"><img class="logo-rft" src="{{ url_for('static', filename='logos/rft.png') }}" alt="Raumfahrttechnik (RFT)"></a>
+      <div class="footer-bart"><img src="{{ url_for('static', filename='logos/bart.svg') }}" alt="BART Team · Parabolic Flight Campaign"></div>
+      <a class="footer-partner footer-partner-right" href="https://www.sla.rwth-aachen.de/cms/~fald/institut-fuer-strukturmechanik-und-leichtbau/" target="_blank" rel="noopener noreferrer" aria-label="RWTH Aachen · SLA (opens in a new tab)"><img src="{{ url_for('static', filename='logos/rwth-sla.png') }}" alt="RWTH Aachen University · Institut für Strukturmechanik und Leichtbau (SLA)"></a>
+    </div>
+    <span data-i18n="footerTraining">PARABEL / CREW TRAINING</span><span data-i18n="footerTiming">Training simulation · timings adapted to your sequence</span><p class="creator-credit">Created by Maximilian von Unwerth @ BART Team - 47th dlr parabolic flight campaign</p><a class="linkedin-contact" href="https://www.linkedin.com/in/maximilian-von-unwerth-578679208/?isSelfProfile=true" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><rect width="24" height="24" rx="4" fill="currentColor"></rect><path d="M7 9.2V17H4.7V9.2H7ZM5.85 8.1A1.35 1.35 0 1 1 5.85 5.4a1.35 1.35 0 0 1 0 2.7ZM9.1 9.2h2.2v1.06h.03c.31-.6 1.08-1.24 2.22-1.24 2.37 0 2.8 1.56 2.8 3.58V17h-2.3v-3.91c0-.93-.02-2.12-1.29-2.12-1.29 0-1.49 1.01-1.49 2.05V17H9.1V9.2Z" fill="white"></path></svg><span data-i18n="contactMe">Contact me</span></a></footer>
+</main>
+</body></html>
